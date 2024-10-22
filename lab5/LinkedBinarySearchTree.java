@@ -174,6 +174,7 @@ public class LinkedBinarySearchTree<E extends Comparable> implements Iterable<E>
         
         public PreorderIterator(){
             //Implement Here
+
         }
         
         public boolean hasNext(){
@@ -200,20 +201,50 @@ public class LinkedBinarySearchTree<E extends Comparable> implements Iterable<E>
         
         public InorderIterator(){
             //Implement Here
+            next = root; 
+            while(next.left != null){
+                next = next.left;
+            }
+
         }
         
         public boolean hasNext(){
-            return false;
             //Implement Here
+            if(next == null){
+                return false;
+            }
+            return true; 
         }
         
         public E next(){
-            return null;
             //Implement Here
+            E output = next.elem;
+            if(next.right != null){
+                next = next.right;
+                while (next.left != null){
+                    next = next.left;
+                }
+                return output;
+              }
+              else {
+                while(true){ 
+                   if(next.parent == null){
+                        next = null;
+                        return output;
+                   } 
+                   if(next.parent.left == next){
+                        next = next.parent;
+                        return output;
+                   }  
+                   next = next.parent;
+                }  
+            } 
+              
         }
         
         public void remove(){
             // not implemented
+            
         }
     }
 }
